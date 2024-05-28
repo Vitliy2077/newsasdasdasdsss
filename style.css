@@ -1,0 +1,21 @@
+.hidden {
+    display: none
+}
+
+#linkContainer {
+    margin-top: 10px; /* Отступ сверху для разделения кнопки и ссылок */
+    padding: 10px; /* Внутренние отступы */
+    border: 1px solid #000; /* Рамка вокруг контейнера */
+    background-color: #f9f9f9; /* Цвет фона контейнера */
+}
+
+#linkContainer a {
+    display: block; /* Каждая ссылка занимает всю ширину контейнера */
+    margin-bottom: 5px; /* Отступ между ссылками */
+    color: #000; /* Цвет текста ссылок */
+    text-decoration: none; /* Убираем подчеркивание ссылок */
+}
+
+#linkContainer a:hover {
+    text-decoration: underline; /* Добавляем подчеркивание при наведении */
+}

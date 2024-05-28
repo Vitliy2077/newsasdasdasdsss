@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Website</title>
+    <style>
+        .news-item {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .news-item h2 {
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Latest News</h1>
+    <div id="news-container"></div>
+    <script>
+        const apiKey = 'YOUR_NEWSAPI_KEY';
+        const newsContainer = document.getElementById('news-container');
+
+        async function fetchNews() {
+            const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`);
+            const data = await response.json();
+            return data.articles;
+        }
+
+        function displayNews(articles) {
+            newsContainer.innerHTML = '';
+            articles.forEach(article => {
+                const newsItem = document.createElement('div');
+                newsItem.classList.add('news-item');
+
+                const newsTitle = document.createElement('h2');
+                newsTitle.textContent = article.title;
+
+                const newsContent = document.createElement('p');
+                newsContent.textContent = article.description;
+
+                const newsLink = document.createElement('a');
+                newsLink.href = article.url;
+                newsLink.target = '_blank';
+                newsLink.textContent = 'Read more';
+
+                const newsDate = document.createElement('p');
+                newsDate.textContent = `Published on ${new Date(article.publishedAt).toLocaleDateString()}`;
+
+                newsItem.appendChild(newsTitle);
+                newsItem.appendChild(newsContent);
+                newsItem.appendChild(newsLink);
+                newsItem.appendChild(newsDate);
+
+                newsContainer.appendChild(newsItem);
+            });
+        }
+
+        async function updateNews() {
+            const articles = await fetchNews();
+            displayNews(articles);
+        }
+
+        // Initial news fetch
+        updateNews();
+
+        // Auto-update news every hour (3600000 milliseconds)
+        setInterval(updateNews, 3600000);
+    </script>
+</body>
+</html>
